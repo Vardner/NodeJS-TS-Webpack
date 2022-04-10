@@ -7,10 +7,13 @@ const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 const tsRules = {
     test: /\.ts$/,
     exclude: /node_modules/,
+    // include: [path.join(__dirname, 'src/index.ts')],
     use: [
         {
+            // loader: 'awesome-typescript-loader',
             loader: 'ts-loader',
             options: {
+                // useCache: true,
                 logLevel: 'warn',
                 experimentalFileCaching: true,
                 onlyCompileBundledFiles: true,
@@ -35,28 +38,17 @@ const htmlRules = {
 };
 
 module.exports = {
-    target: 'node',
     entry: {
-        app: './src/app.ts',
+        app: './src/models/index.ts',
     },
-    /**
-     *  This setting help to fix the way of how webpack treats imports such as like path, fs, etc. (he searches for them as inner project dependency).
-     *  Thus, webpack will treat these modules as external, so they will be loaded correctly from node js environment
-     *  @see https://webpack.js.org/configuration/externals/#externals
-     */
-    externalsPresets: {node: true},
-    /**
-     * This setting help to fix the way of how webpack treats different imports inside node_modules folder.
-     * Without it webpack will try to import every module in the beginning of the file which will lead to fail if module is absent.
-     *
-     */
-    externals: [nodeExternals()], // in order to ignore all modules in node_modules folder
-    target: 'node',
+    externals: [nodeExternals()],
+    target: "node",
     mode: 'development',
     devtool: 'inline-source-map',
     output: {
         path: path.resolve(__dirname, 'build'),
-        filename: '[name].js'
+        libraryTarget: 'umd',
+        filename: 'model-library.js'
     },
     resolve: {
         plugins: [new TsconfigPathsPlugin({configFile: './tsconfig.json'})],
@@ -65,5 +57,4 @@ module.exports = {
     module: {
         rules: [tsRules, htmlRules]
     },
-    plugins: []
-};
+}

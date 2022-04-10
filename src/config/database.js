@@ -11,7 +11,8 @@ exports.DB_CONFIG = {
         'database': process.env.DB_DATABASE,
         'host': '127.0.0.1',
         'dialect': 'postgres',
-        dialectModule: pg
+        dialectModule: pg,
+        logging: false
     },
     'test': {
         'username': process.env.DB_USER,
@@ -19,7 +20,8 @@ exports.DB_CONFIG = {
         'database': process.env.DB_DATABASE,
         'host': '127.0.0.1',
         'dialect': 'postgres',
-        dialectModule: pg
+        dialectModule: pg,
+        logging: false
     },
     'production': {
         'username': process.env.DB_USER,
@@ -27,7 +29,8 @@ exports.DB_CONFIG = {
         'database': process.env.DB_DATABASE,
         'host': '127.0.0.1',
         'dialect': 'postgres',
-        dialectModule: pg
+        dialectModule: pg,
+        logging: false
     }
 };
 // Костыль необходимый для работы sequelize когда взаимодействие происходит через CLI
